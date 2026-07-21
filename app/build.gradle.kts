@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com"
+    namespace = "com.ventaxiscorp.hexinspect"
     compileSdk = 34
 
     defaultConfig {
@@ -50,6 +50,7 @@ dependencies {
     implementation("androidx.navigation:navigation-compose:2.8.2")
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.4")
     implementation("androidx.compose.material:material-icons-extended:1.7.5")
+    implementation("com.google.code.gson:gson:2.10.1")
 
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
