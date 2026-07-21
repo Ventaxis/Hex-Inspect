@@ -17,6 +17,31 @@ jobs:
           distribution: 'temurin'
           java-version: '17'
 
+      - name: Create Android Project Structure
+        run: |
+          mkdir -p app/src/main/java/com/hex/inspect
+          mkdir -p app/src/main/res
+          
+          # Переносим твои .kt файлы в правильную структуру Android-модуля
+          mv *.kt app/src/main/java/com/hex/inspect/ || true
+          
+          # Если AndroidManifest.xml лежит в корне, переносим его тоже
+          if [ -f AndroidManifest.xml ]; then
+            mv AndroidManifest.xml app/src/main/
+          fi
+          
+          # Если build.gradle.kts лежит в корне, переносим его в модуль app
+          if [ -f build.gradle.kts ]; then
+            mv build.gradle.kts app/
+          fi
+
+          # Создаем минимальный settings.gradle.kts
+          echo "rootProject.name = \"Hex-Inspect\"" > settings.gradle.kts
+          echo "include(\":app\")" >> settings.gradle.kts
+
+          # Генерируем Gradle wrapper, чтобы появился gradlew
+          gradle wrapper
+
       - name: Make Gradle executable
         run: chmod +x ./gradlew
 
